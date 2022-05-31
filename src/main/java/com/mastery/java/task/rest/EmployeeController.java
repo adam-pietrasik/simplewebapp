@@ -3,8 +3,12 @@ package com.mastery.java.task.rest;
 import com.mastery.java.task.dto.Employee;
 import com.mastery.java.task.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+
+import java.net.URI;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,8 +32,13 @@ public class EmployeeController {
     }
 
     @PostMapping("/insertEmployee")
-    public void insertEmployee(@RequestBody Employee employee){
+    public ResponseEntity<Employee> insertEmployee(@RequestBody Employee employee){
         employeeService.insertEmployee(employee);
+        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/insertEmployee")
+                .buildAndExpand(employee)
+                .toUri();
+        return ResponseEntity.created(location).build();
     }
 
     @DeleteMapping( "/deleteEmployee/{employeeId}")

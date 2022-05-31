@@ -81,7 +81,7 @@ public class EmployeeServiceTest {
     }
 
     @Test
-    public void updateEmployeeShouldUpdateEmployeeDataThanReturnUpdatedEmployee(){
+    public void updateEmployeeShouldUpdateEmployeeDataThenReturnUpdatedEmployee(){
         willDoNothing().given(employeeDao).updateEmployee(first_employee, FIRST_EMPLOYEE_ID);
 
         first_employee.setFirstName("John");

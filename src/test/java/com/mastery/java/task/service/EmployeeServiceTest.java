@@ -25,20 +25,20 @@ public class EmployeeServiceTest {
     EmployeeDao employeeDao;
     @InjectMocks
     EmployeeService employeeService;
-    private Employee first_employee;
-    private Employee second_employee;
+    private Employee firstEmployee;
+    private Employee secondEmployee;
     private final Long FIRST_EMPLOYEE_ID = 1L;
     private final Long SECOND_EMPLOYEE_ID = 2L;
     private final Long THIRD_EMPLOYEE_ID = 3L;
 
     @BeforeEach
     public void setup(){
-        first_employee = new Employee(1L
+        firstEmployee = new Employee(1L
                 , "Adam"
                 , "Pietrasik"
                 , 2L
                 , "Software Engineer");
-        second_employee = new Employee(2L
+        secondEmployee = new Employee(2L
                 , "Test"
                 , "Testinger"
                 , 3L
@@ -49,7 +49,7 @@ public class EmployeeServiceTest {
     @Test
     public void getEmployeeReturnsExpectedEmployee(){
         //given
-        given(employeeDao.getEmployee(FIRST_EMPLOYEE_ID)).willReturn(Optional.of(first_employee));
+        given(employeeDao.getEmployee(FIRST_EMPLOYEE_ID)).willReturn(Optional.of(firstEmployee));
 
         //when
         Employee actualEmployee = employeeService.getEmployee(FIRST_EMPLOYEE_ID).get();
@@ -57,18 +57,18 @@ public class EmployeeServiceTest {
         //then
         assertThat(actualEmployee)
                 .isNotNull()
-                .isEqualTo(first_employee);
+                .isEqualTo(firstEmployee);
     }
 
     @Test
     public void getEmployeesReturnsExpectedListOfEmployees(){
-        given(employeeDao.getEmployees()).willReturn(List.of(first_employee, second_employee));
+        given(employeeDao.getEmployees()).willReturn(List.of(firstEmployee, secondEmployee));
 
         List<Employee> actualEmployeesList = employeeService.getEmployees();
 
         assertThat(actualEmployeesList)
                 .isNotNull()
-                .isEqualTo(List.of(first_employee, second_employee));
+                .isEqualTo(List.of(firstEmployee, secondEmployee));
     }
 
     @Test
@@ -82,16 +82,16 @@ public class EmployeeServiceTest {
 
     @Test
     public void updateEmployeeShouldUpdateEmployeeDataThenReturnUpdatedEmployee(){
-        willDoNothing().given(employeeDao).updateEmployee(first_employee, FIRST_EMPLOYEE_ID);
+        willDoNothing().given(employeeDao).updateEmployee(firstEmployee, FIRST_EMPLOYEE_ID);
 
-        first_employee.setFirstName("John");
-        first_employee.setLastName("Doe");
+        firstEmployee.setFirstName("John");
+        firstEmployee.setLastName("Doe");
 
-        employeeService.updateEmployee(first_employee, FIRST_EMPLOYEE_ID);
+        employeeService.updateEmployee(firstEmployee, FIRST_EMPLOYEE_ID);
 
-        assertThat(first_employee.getFirstName())
+        assertThat(firstEmployee.getFirstName())
                 .isEqualTo("John");
-        assertThat(first_employee.getLastName())
+        assertThat(firstEmployee.getLastName())
                 .isEqualTo("Doe");
     }
 
